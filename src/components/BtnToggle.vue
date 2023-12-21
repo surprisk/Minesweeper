@@ -1,7 +1,7 @@
 <template>
   <div class='btn-toggle'>
     <label>
-      <input type='checkbox' v-model="isChecked">
+      <input type='checkbox' v-model="isChecked" @click="$emit('isChecked', isChecked)">
       <span></span>
     </label>
   </div>
@@ -10,12 +10,9 @@
 <script>
 export default {
   name: 'BtnToggle',
-  props: {
-    checked: Boolean
-  },
   data() {
     return {
-      isChecked: this.checked
+      isChecked: true
     }
   }
 }
@@ -29,8 +26,8 @@ export default {
 .btn-toggle{
   position: relative;
   width: var(--toggle-size);
-  --light: #d8dbe0;
-  --dark: #28292c;
+  --light: var(--item-light);
+  --dark: var(--item-dark);
 }
 
 label {
@@ -49,8 +46,8 @@ input {
 
 span {
   position: absolute;
-  left: 0;
-  width: 100%;
+  left: -0.1em;
+  width: calc(100% + 0.2em);
   height: calc(var(--toggle-size)/2);
   border-radius: calc(var(--toggle-size)/4);
   transition: 0.3s;
@@ -64,7 +61,7 @@ span::before {
   content: "";
   position: absolute;
   top: calc(var(--toggle-size)*0.08);
-  left: calc(var(--toggle-size)*0.1);
+  left: calc(var(--toggle-size)*0.12);
   width: calc(var(--toggle-size)/3);
   height: calc(var(--toggle-size)/3);
   border-radius: 50%;
