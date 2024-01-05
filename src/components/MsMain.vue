@@ -1,25 +1,40 @@
 <template>
-  <MsCase :casePosition="{row: 1, column: 1, type: 'bomb'}"> t</MsCase>
-  <button @click="getBoard(this.board.width, this.board.height, this.board.bombs)">Gen</button>
-  <div v-for="r in this.board.map" :key="r">
-    <MsCase v-for="c in r" :key="c" :casePosition="c"> {{c.value}}</MsCase>
-  </div>
+  <main>
+    <form>
+      <MsInput label="Largeur" :formValue="board.width" @update:formValue="v => board.width = v"/>
+      <MsInput label="Hauteur" :formValue="board.height" @update:formValue="v => board.height = v"/>
+      <MsInput label="Bombes" :formValue="board.bombs" @update:formValue="v => board.bombs = v"/>
+      <MsSubmit value="Générer" @click.prevent="getBoard(this.board.width, this.board.height, this.board.bombs)"/>
+    </form>
+    <MsRow v-for="(r, i ) in this.board.map" :key="r" :id="'r' + i">
+      <MsCase v-for="c in r" :key="c" :casePosition="c"> <span v-if="c.type=='digit'">{{ c.value }}</span><SvgBomb v-else-if="c.type=='bomb'"/> </MsCase>
+    </MsRow>
+  </main>
 </template>
 
 <script>
-import MsCase from './MsCase.vue';
+import MsInput from './form/MsInput';
+import MsSubmit from './form/MsSubmit';
+import MsCase from './MsMain/MsCase.vue';
+import MsRow from './MsMain/MsRow.vue';
+import SvgBomb from './svg/SvgBomb.vue';
 
 export default {
   name: 'MsMain',
   components: {
-    MsCase
+    MsInput,
+    MsSubmit,
+    MsCase,
+    MsRow,
+    SvgBomb
   },
   data() {
-    return {    
+    return {   
+      test: 13, 
       board: {
-        width: 12,
-        height: 12,
-        bombs: 2,
+        width: 16,
+        height: 16,
+        bombs: 40,
         map: []
       }
     }
@@ -64,6 +79,7 @@ export default {
       return board;
     },
     getBoard(width, height, bombs){
+      console.log(this.board.width)
       const bombsCoordinates = this.getBombsCoordinates(width, height, bombs)
 
       bombsCoordinates.push({row: 0, column: 0})
@@ -100,5 +116,12 @@ export default {
 </script>
 
 <style scoped>
+  main{
+    padding: 1em 4em
+  }
+
+  form{
+    margin-bottom: 4em;
+  }
 
 </style>

@@ -1,8 +1,7 @@
 <template>
   <div id='theme_wrapper'>
-    <MsHeader/>
+    <MsHeader @darkmode="v => this.theme = v ? 'dark' : 'light'"/>
     <MsMain/>
-    <BtnToggle @isChecked="updateTheme"/>
     <MsFooter/>
   </div>
 </template>
@@ -10,7 +9,6 @@
 <script>
 import MsHeader from './components/MsHeader.vue'
 import MsMain from './components/MsMain.vue'
-import BtnToggle from './components/BtnToggle.vue'
 import MsFooter from './components/MsFooter.vue'
 
 export default {
@@ -18,7 +16,6 @@ export default {
   components: {
     MsHeader,
     MsMain,
-    BtnToggle,
     MsFooter
   },
   data() {
@@ -65,7 +62,7 @@ export default {
 #theme_wrapper{
   background-color: var(--background);
   color: var(--color);
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;
   text-align: center;
 }
 </style>
